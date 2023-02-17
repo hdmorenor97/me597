@@ -18,7 +18,8 @@ class MTConnectAdapter(object):
         self.adapter = Adapter((host, port))
 
         # For samples
-        self.js_header
+        self.js_header=Sample('js_header')
+        self.adapter.add_data_item(self.js_header)
         self.j1 = Sample('j1') # self.a1 takes 'a1' data item id.
         self.adapter.add_data_item(self.j1) # adding self.a1 as a data item
         self.j2 = Sample('j2') # self.t1 takes 't1' data item id.
@@ -51,7 +52,7 @@ class MTConnectAdapter(object):
         self.adapter_stream()
 
     def callback(self,JointState): 
-        self.js_header=JointState.velocity
+        self.js_header= JointState.velocity
 
         rospy.loginfo('I heard %s',self.js_header) 
 
