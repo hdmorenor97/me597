@@ -54,7 +54,7 @@ class MTConnectAdapter(object):
     def callback(self,JointState): 
         self.js_header= JointState.velocity
 
-        rospy.loginfo('I heard %s',self.js_header) 
+        # rospy.loginfo('I heard %s',self.js_header) 
 
     def listener(self): 
  
@@ -87,12 +87,12 @@ class MTConnectAdapter(object):
                 self.j6.set_value(str(self.js_header[5])) # set value of t1 data item, format: str(float)
                 self.adapter.complete_gather()
 
-                print("{} Joint 1 Velocity={} mm/s".format(datetime.datetime.now(), self.j1)) # printing out datetime now and a1
-                print("{} Joint 2 Velocity={} mm/s".format(datetime.datetime.now(), self.j2)) # printing out datetime now and a1
-                print("{} Joint 3 Velocity={} mm/s".format(datetime.datetime.now(), self.j3)) # printing out datetime now and a1
-                print("{} Joint 4 Velocity={} mm/s".format(datetime.datetime.now(), self.j4)) # printing out datetime now and a1
-                print("{} Joint 5 Velocity={} mm/s".format(datetime.datetime.now(), self.j5)) # printing out datetime now and a1
-                print("{} Joint 6 Velocity={} mm/s".format(datetime.datetime.now(), self.j6)) # printing out datetime now and a1
+                print("{} Joint 1 Velocity={} mm/s".format(datetime.datetime.now(), self.js_header[0])) # printing out datetime now and a1
+                print("{} Joint 2 Velocity={} mm/s".format(datetime.datetime.now(), self.js_header[1])) # printing out datetime now and a1
+                print("{} Joint 3 Velocity={} mm/s".format(datetime.datetime.now(), self.js_header[2])) # printing out datetime now and a1
+                print("{} Joint 4 Velocity={} mm/s".format(datetime.datetime.now(), self.js_header[3])) # printing out datetime now and a1
+                print("{} Joint 5 Velocity={} mm/s".format(datetime.datetime.now(), self.js_header[4])) # printing out datetime now and a1
+                print("{} Joint 6 Velocity={} mm/s".format(datetime.datetime.now(), self.js_header[5])) # printing out datetime now and a1
                 print(datetime.datetime.now(), "MTConnect data items gathering completed...\n") # printing out MTConnect data collection is done.
 
                 time.sleep(2) # wait for 2 seconds
