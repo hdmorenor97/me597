@@ -18,6 +18,7 @@ class MTConnectAdapter(object):
         self.adapter = Adapter((host, port))
 
         # For samples
+        self.js_header
         self.j1 = Sample('j1') # self.a1 takes 'a1' data item id.
         self.adapter.add_data_item(self.j1) # adding self.a1 as a data item
         self.j2 = Sample('j2') # self.t1 takes 't1' data item id.
@@ -46,49 +47,14 @@ class MTConnectAdapter(object):
         self.adapter.begin_gather()
         self.avail.set_value("AVAILABLE")
         self.adapter.complete_gather()
+        self.listener()
         self.adapter_stream()
 
     def callback(self,JointState): 
         self.js_header=JointState.velocity
-        # self.j_1=self.js_header[0]
-        # self.j_2=self.js_header[1]
-        # self.j_3=self.js_header[2]
-        # self.j_4=self.js_header[3]
-        # self.j_5=self.js_header[4]
-        # self.j_6=self.js_header[5]
+
         rospy.loginfo('I heard %s',self.js_header) 
-        # while True:
-        #     try:
-        #         # Do something here.
-        #         # a1 = random.uniform(-1,1) # this example is to take a random float between -1 and 1.
-        #         # t1 = random.uniform(20,25) # this example is to take a random float between 15 and 25.
-                
-        #         self.adapter.begin_gather()
-        #         self.j1.set_value(str(j1)) # set value of a1 data item, format: str(float)
-        #         self.j2.set_value(str(j2))
-        #         self.j3.set_value(str(j3))
-        #         self.j4.set_value(str(j4))
-        #         self.j5.set_value(str(j5))
-        #         self.j6.set_value(str(j6)) # set value of t1 data item, format: str(float)
-        #         self.adapter.complete_gather()
 
-        #         print("{} Joint 1 Velocity={} mm/s".format(datetime.datetime.now(), j1)) # printing out datetime now and a1
-        #         print("{} Joint 2 Velocity={} mm/s".format(datetime.datetime.now(), j2)) # printing out datetime now and a1
-        #         print("{} Joint 3 Velocity={} mm/s".format(datetime.datetime.now(), j3)) # printing out datetime now and a1
-        #         print("{} Joint 4 Velocity={} mm/s".format(datetime.datetime.now(), j4)) # printing out datetime now and a1
-        #         print("{} Joint 5 Velocity={} mm/s".format(datetime.datetime.now(), j5)) # printing out datetime now and a1
-        #         print("{} Joint 6 Velocity={} mm/s".format(datetime.datetime.now(), j6)) # printing out datetime now and a1
-        #         print(datetime.datetime.now(), "MTConnect data items gathering completed...\n") # printing out MTConnect data collection is done.
-
-        #         time.sleep(2) # wait for 2 seconds
-
-        #     except KeyboardInterrupt:
-        #         print("Stopping MTConnect...")
-        #         self.adapter.stop() # Stop adapter thread
-        #         sys.exit() # Terminate Python
-        # #print(1)#rospy.loginfo('I heard %s', JointState) 
-
-    
     def listener(self): 
  
     # In ROS, nodes are uniquely named. If two nodes with the same 
@@ -101,11 +67,7 @@ class MTConnectAdapter(object):
         rospy.init_node('listener', anonymous=True) 
     
         joints=rospy.Subscriber('/joint_states', JointState, self.callback) 
-        #msg = rospy.wait_for_message("/joint_states", JointState) 
 
-        #print(joints) 
-
-        # spin() simply keeps python from exiting until this node is stopped 
         rospy.spin() 
 
     def adapter_stream(self):
