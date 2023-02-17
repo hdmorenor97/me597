@@ -46,47 +46,47 @@ class MTConnectAdapter(object):
         self.adapter.begin_gather()
         self.avail.set_value("AVAILABLE")
         self.adapter.complete_gather()
-        # self.adapter_stream()
+        self.adapter_stream()
 
     def callback(self,JointState): 
         self.js_header=JointState.velocity
-        j1=self.js_header[0]
-        j2=self.js_header[1]
-        j3=self.js_header[2]
-        j4=self.js_header[3]
-        j5=self.js_header[4]
-        j6=self.js_header[5]
+        # self.j_1=self.js_header[0]
+        # self.j_2=self.js_header[1]
+        # self.j_3=self.js_header[2]
+        # self.j_4=self.js_header[3]
+        # self.j_5=self.js_header[4]
+        # self.j_6=self.js_header[5]
         rospy.loginfo('I heard %s',self.js_header) 
-        while True:
-            try:
-                # Do something here.
-                # a1 = random.uniform(-1,1) # this example is to take a random float between -1 and 1.
-                # t1 = random.uniform(20,25) # this example is to take a random float between 15 and 25.
+        # while True:
+        #     try:
+        #         # Do something here.
+        #         # a1 = random.uniform(-1,1) # this example is to take a random float between -1 and 1.
+        #         # t1 = random.uniform(20,25) # this example is to take a random float between 15 and 25.
                 
-                self.adapter.begin_gather()
-                self.j1.set_value(str(j1)) # set value of a1 data item, format: str(float)
-                self.j2.set_value(str(j2))
-                self.j3.set_value(str(j3))
-                self.j4.set_value(str(j4))
-                self.j5.set_value(str(j5))
-                self.j6.set_value(str(j6)) # set value of t1 data item, format: str(float)
-                self.adapter.complete_gather()
+        #         self.adapter.begin_gather()
+        #         self.j1.set_value(str(j1)) # set value of a1 data item, format: str(float)
+        #         self.j2.set_value(str(j2))
+        #         self.j3.set_value(str(j3))
+        #         self.j4.set_value(str(j4))
+        #         self.j5.set_value(str(j5))
+        #         self.j6.set_value(str(j6)) # set value of t1 data item, format: str(float)
+        #         self.adapter.complete_gather()
 
-                print("{} Joint 1 Velocity={} mm/s".format(datetime.datetime.now(), j1)) # printing out datetime now and a1
-                print("{} Joint 2 Velocity={} mm/s".format(datetime.datetime.now(), j2)) # printing out datetime now and a1
-                print("{} Joint 3 Velocity={} mm/s".format(datetime.datetime.now(), j3)) # printing out datetime now and a1
-                print("{} Joint 4 Velocity={} mm/s".format(datetime.datetime.now(), j4)) # printing out datetime now and a1
-                print("{} Joint 5 Velocity={} mm/s".format(datetime.datetime.now(), j5)) # printing out datetime now and a1
-                print("{} Joint 6 Velocity={} mm/s".format(datetime.datetime.now(), j6)) # printing out datetime now and a1
-                print(datetime.datetime.now(), "MTConnect data items gathering completed...\n") # printing out MTConnect data collection is done.
+        #         print("{} Joint 1 Velocity={} mm/s".format(datetime.datetime.now(), j1)) # printing out datetime now and a1
+        #         print("{} Joint 2 Velocity={} mm/s".format(datetime.datetime.now(), j2)) # printing out datetime now and a1
+        #         print("{} Joint 3 Velocity={} mm/s".format(datetime.datetime.now(), j3)) # printing out datetime now and a1
+        #         print("{} Joint 4 Velocity={} mm/s".format(datetime.datetime.now(), j4)) # printing out datetime now and a1
+        #         print("{} Joint 5 Velocity={} mm/s".format(datetime.datetime.now(), j5)) # printing out datetime now and a1
+        #         print("{} Joint 6 Velocity={} mm/s".format(datetime.datetime.now(), j6)) # printing out datetime now and a1
+        #         print(datetime.datetime.now(), "MTConnect data items gathering completed...\n") # printing out MTConnect data collection is done.
 
-                time.sleep(2) # wait for 2 seconds
+        #         time.sleep(2) # wait for 2 seconds
 
-            except KeyboardInterrupt:
-                print("Stopping MTConnect...")
-                self.adapter.stop() # Stop adapter thread
-                sys.exit() # Terminate Python
-        #print(1)#rospy.loginfo('I heard %s', JointState) 
+        #     except KeyboardInterrupt:
+        #         print("Stopping MTConnect...")
+        #         self.adapter.stop() # Stop adapter thread
+        #         sys.exit() # Terminate Python
+        # #print(1)#rospy.loginfo('I heard %s', JointState) 
 
     
     def listener(self): 
@@ -108,28 +108,36 @@ class MTConnectAdapter(object):
         # spin() simply keeps python from exiting until this node is stopped 
         rospy.spin() 
 
-    # def adapter_stream(self):
-    #     while True:
-    #         try:
-    #             # Do something here.
-    #             # a1 = random.uniform(-1,1) # this example is to take a random float between -1 and 1.
-    #             # t1 = random.uniform(20,25) # this example is to take a random float between 15 and 25.
+    def adapter_stream(self):
+        while True:
+            try:
+                # Do something here.
+                # a1 = random.uniform(-1,1) # this example is to take a random float between -1 and 1.
+                # t1 = random.uniform(20,25) # this example is to take a random float between 15 and 25.
                 
-    #             self.adapter.begin_gather()
-    #             self.j1.set_value(str(self.j1)) # set value of a1 data item, format: str(float)
-    #             self.j2.set_value(str(self.j2)) # set value of t1 data item, format: str(float)
-    #             self.adapter.complete_gather()
+                self.adapter.begin_gather()
+                self.j1.set_value(str(self.js_header[0])) # set value of a1 data item, format: str(float)
+                self.j2.set_value(str(self.js_header[1]))
+                self.j3.set_value(str(self.js_header[2]))
+                self.j4.set_value(str(self.js_header[3]))
+                self.j5.set_value(str(self.js_header[4]))
+                self.j6.set_value(str(self.js_header[5])) # set value of t1 data item, format: str(float)
+                self.adapter.complete_gather()
 
-    #             print("{} RANDOM VALUE a1={} mm/s^2".format(datetime.datetime.now(), a1)) # printing out datetime now and a1
-    #             print("{} RANDOM VALUE t1={} °C".format(datetime.datetime.now(), t1)) # printin gout datetime now and t1 
-    #             print(datetime.datetime.now(), "MTConnect data items gathering completed...\n") # printing out MTConnect data collection is done.
+                print("{} Joint 1 Velocity={} mm/s".format(datetime.datetime.now(), self.j1)) # printing out datetime now and a1
+                print("{} Joint 2 Velocity={} mm/s".format(datetime.datetime.now(), self.j2)) # printing out datetime now and a1
+                print("{} Joint 3 Velocity={} mm/s".format(datetime.datetime.now(), self.j3)) # printing out datetime now and a1
+                print("{} Joint 4 Velocity={} mm/s".format(datetime.datetime.now(), self.j4)) # printing out datetime now and a1
+                print("{} Joint 5 Velocity={} mm/s".format(datetime.datetime.now(), self.j5)) # printing out datetime now and a1
+                print("{} Joint 6 Velocity={} mm/s".format(datetime.datetime.now(), self.j6)) # printing out datetime now and a1
+                print(datetime.datetime.now(), "MTConnect data items gathering completed...\n") # printing out MTConnect data collection is done.
 
-    #             time.sleep(2) # wait for 2 seconds
-
-    #         except KeyboardInterrupt:
-    #             print("Stopping MTConnect...")
-    #             self.adapter.stop() # Stop adapter thread
-    #             sys.exit() # Terminate Python
+                time.sleep(2) # wait for 2 seconds
+            except KeyboardInterrupt:
+                print("Stopping MTConnect...")
+                self.adapter.stop() # Stop adapter thread
+                sys.exit() # Terminate Python
+        #print(1)#rospy.loginfo('I heard %s', JointState) 
 
 ## ====================== MAIN ======================
 if __name__ == "__main__":
