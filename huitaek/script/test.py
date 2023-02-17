@@ -8,6 +8,7 @@ def callback(JointState):
     joint1_vel=js_header[0]
     rospy.loginfo('I heard %s',joint1_vel) 
     print(1)#rospy.loginfo('I heard %s', JointState) 
+    return joint1_vel
  
 def listener(): 
  
@@ -28,6 +29,9 @@ def listener():
     # spin() simply keeps python from exiting until this node is stopped 
     rospy.spin() 
  
+def mtconnectparser(joint1_vel):
+    stri=joint1_vel[1]+"Joint2:"+joint1_vel[2]
+
 if __name__ == '__main__': 
     listener() 
 # loop (1s) 
